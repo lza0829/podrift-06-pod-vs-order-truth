@@ -20,7 +20,7 @@ def get_policy():
 
 @router.post("/重启策")
 def set_policy(body: PolicyIn):
-    with db() as conn:
+    with db(write=True) as conn:
         backoff = body.backoff_sec
         if backoff is None:
             cur = conn.execute("SELECT backoff_sec FROM restart_policy WHERE id=1").fetchone()

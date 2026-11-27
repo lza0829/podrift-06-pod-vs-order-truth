@@ -28,7 +28,7 @@ def list_probes():
 
 @router.post("/探针/{pod_id}")
 def set_probe(pod_id: int, body: ProbePatch):
-    with db() as conn:
+    with db(write=True) as conn:
         streak = body.fail_streak
         if streak is None:
             streak = 0 if body.color == "绿" else 1
